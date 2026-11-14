@@ -80,6 +80,18 @@ pub enum ReadMode {
     Fast,
 }
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum FIFOMode {
+    Disabled,
+    /// Circular buffer - when the buffer fills, incoming samples replace the oldest first.
+    Circular,
+    /// Fill buffer - when the buffer fills, new samples are rejected.
+    Fill,
+    /// Trigger buffer - same as circular, but stops when triggered... or it keeps recording a few
+    /// samples, as set by the high water mark (see F_WMRK0-5).
+    Trigger
+}
+
 /// Output data rate
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum OutputDataRate {

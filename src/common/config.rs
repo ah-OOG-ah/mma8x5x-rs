@@ -5,6 +5,7 @@ use crate::{
     register_access::{BitFlags, Register},
     Config, Error, GScale, Mma8x5x, OutputDataRate, PowerMode, ReadMode,
 };
+use crate::types::FIFOMode;
 
 impl<E, I2C, IC> Mma8x5x<I2C, IC, mode::Standby>
 where
@@ -40,6 +41,29 @@ where
         self.write_reg(Register::CTRL_REG1, config.bits)?;
         self.ctrl_reg1 = config;
         Ok(())
+    }
+
+    /// Set FIFO buffer mode
+    #[allow(clippy::needless_return)]
+    #[allow(non_snake_case)]
+    pub fn setBufferMode(&mut self, mode: FIFOMode) -> Result<(), Error<E>> {
+        let config = match mode {
+            FIFOMode::Disabled => self.f_setup
+                .with_low(BitFlags::F_MODE0)
+                .with_low(BitFlags::F_MODE1),
+            FIFOMode::Circular => self.f_setup
+                .with_high(BitFlags::F_MODE0)
+                .with_low(BitFlags::F_MODE1),
+            FIFOMode::Fill => self.f_setup
+                .with_low(BitFlags::F_MODE0)
+                .with_high(BitFlags::F_MODE1),
+            FIFOMode::Trigger => self.f_setup
+                .with_high(BitFlags::F_MODE0)
+                .with_high(BitFlags::F_MODE1)
+        };
+        self.write_reg(Register::F_SETUP, config.bits)?;
+        self.f_setup = config;
+        return Ok(());
     }
 
     /// Set offset correction.
@@ -114,6 +138,7 @@ where
     pub(crate) fn reset_internal(&mut self) -> Result<(), Error<E>> {
         let config = self.ctrl_reg2.with_high(BitFlags::RST);
         self.write_reg(Register::CTRL_REG2, config.bits)?;
+        self.f_setup = Config::default();
         self.ctrl_reg1 = Config::default();
         self.ctrl_reg2 = Config::default();
         self.ctrl_reg3 = Config::default();

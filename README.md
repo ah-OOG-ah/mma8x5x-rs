@@ -1,12 +1,14 @@
-# Rust MMA8x5x Tri-Axis Accelerometers Driver
+# Rust ~~MMA8x5x~~ MMA8451Q Tri-Axis Accelerometers Driver
 
 [![crates.io](https://img.shields.io/crates/v/mma8x5x.svg)](https://crates.io/crates/mma8x5x)
 [![Docs](https://docs.rs/mma8x5x/badge.svg)](https://docs.rs/mma8x5x)
 [![Build Status](https://github.com/eldruin/mma8x5x-rs/workflows/Build/badge.svg)](https://github.com/eldruin/mma8x5x-rs/actions?query=workflow%3ABuild)
 [![Coverage Status](https://coveralls.io/repos/github/eldruin/mma8x5x-rs/badge.svg?branch=master)](https://coveralls.io/github/eldruin/mma8x5x-rs?branch=master)
 
-This is a platform agnostic Rust driver for the MMA8451Q, MMA8452Q, MMA8453Q, MMA8652FC
-and MMA8653FC tri-axis accelerators using the [`embedded-hal`] traits.
+This is a fork of the original, which exists solely to expand support for the MMA8451Q. I don't know if my changes brick the other platforms, and I haven't checked; if you wish to upstream these changes in a maintainable fashion... may God be with you.
+
+This is a platform agnostic Rust driver for the MMA8451Q, ~~MMA8452Q, MMA8453Q, MMA8652FC
+and MMA8653FC~~ tri-axis accelerators using the [`embedded-hal`] traits.
 
 This driver allows you to:
 - Change mode to active/standby. See: `into_active()`.

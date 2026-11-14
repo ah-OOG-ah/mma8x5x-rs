@@ -5,6 +5,8 @@ pub struct Register {}
 impl Register {
     pub const STATUS: u8 = 0x00;
     pub const OUT_X_H: u8 = 0x01;
+    pub const F_SETUP: u8 = 0x09;
+    pub const TRIG_CFG: u8 = 0x0A;
     pub const SYSMOD: u8 = 0x0B;
     pub const INT_SOURCE: u8 = 0x0C;
     pub const WHO_AM_I: u8 = 0x0D;
@@ -30,6 +32,15 @@ impl BitFlags {
     pub const F_READ: u8 = 1 << 1;
     pub const ASLP_RATE0: u8 = 1 << 6;
     pub const ASLP_RATE1: u8 = 1 << 7;
+
+    pub const F_WMRK0: u8 = 1;
+    pub const F_WMRK1: u8 = 1 << 1;
+    pub const F_WMRK2: u8 = 1 << 2;
+    pub const F_WMRK3: u8 = 1 << 3;
+    pub const F_WMRK4: u8 = 1 << 4;
+    pub const F_WMRK5: u8 = 1 << 5;
+    pub const F_MODE0: u8 = 1 << 6;
+    pub const F_MODE1: u8 = 1 << 7;
 
     pub const ODR0: u8 = 1 << 3;
     pub const ODR1: u8 = 1 << 4;

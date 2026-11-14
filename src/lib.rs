@@ -262,6 +262,7 @@ pub struct Mma8x5x<I2C, IC, MODE> {
     /// The concrete I²C device implementation.
     i2c: I2C,
     address: u8,
+    f_setup: Config,
     ctrl_reg1: Config,
     ctrl_reg2: Config,
     ctrl_reg3: Config,

@@ -7,6 +7,7 @@ impl<I2C> Mma8x5x<I2C, ic::Mma8451, mode::Standby> {
         Mma8x5x {
             i2c,
             xyz_data_cfg: Config::default(),
+            f_setup: Config::default(),
             ctrl_reg1: Config::default(),
             ctrl_reg2: Config::default(),
             ctrl_reg3: Config::default(),
@@ -27,6 +28,7 @@ impl<I2C> Mma8x5x<I2C, ic::Mma8452, mode::Standby> {
             i2c,
             address: address.addr(MMA845X_BASE_ADDR),
             xyz_data_cfg: Config::default(),
+            f_setup: Config::default(),
             ctrl_reg1: Config::default(),
             ctrl_reg2: Config::default(),
             ctrl_reg3: Config::default(),
@@ -45,6 +47,7 @@ impl<I2C> Mma8x5x<I2C, ic::Mma8453, mode::Standby> {
         Mma8x5x {
             i2c,
             xyz_data_cfg: Config::default(),
+            f_setup: Config::default(),
             ctrl_reg1: Config::default(),
             ctrl_reg2: Config::default(),
             ctrl_reg3: Config::default(),

@@ -21,6 +21,7 @@ where
             Ok(_) => Ok(Mma8x5x {
                 i2c: self.i2c,
                 address: self.address,
+                f_setup: self.f_setup,
                 ctrl_reg1: config,
                 ctrl_reg2: self.ctrl_reg2,
                 ctrl_reg3: self.ctrl_reg3,
@@ -47,6 +48,7 @@ where
             Ok(_) => Ok(Mma8x5x {
                 i2c: self.i2c,
                 address: self.address,
+                f_setup: self.f_setup,
                 ctrl_reg1: config,
                 ctrl_reg2: self.ctrl_reg2,
                 ctrl_reg3: self.ctrl_reg3,
@@ -65,6 +67,7 @@ where
             Ok(_) => Ok(Mma8x5x {
                 i2c: self.i2c,
                 address: self.address,
+                f_setup: Config::default(),
                 ctrl_reg1: Config::default(),
                 ctrl_reg2: Config::default(),
                 ctrl_reg3: Config::default(),
