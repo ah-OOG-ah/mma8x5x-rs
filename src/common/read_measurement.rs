@@ -84,3 +84,35 @@ read_impl!(Mma8452, convert_12bit, 1024.0);
 read_impl!(Mma8453, convert_10bit, 256.0);
 read_impl!(Mma8652, convert_12bit, 1024.0);
 read_impl!(Mma8653, convert_10bit, 256.0);
+
+/// Manually implement burst reads for the MMA8451.
+#[allow(clippy::needless_return)]
+#[allow(non_snake_case)]
+impl<E, I2C> Mma8x5x<I2C, ic::Mma8451, mode::Active>
+where
+    I2C: I2c<SevenBitAddress, Error=E>,
+{
+    /// Reads all data from the FIFO.
+    fn readRawBurst(&mut self) -> Result<[(u16, u16, u16); 32], Error<E>> {
+        if self.ctrl_reg1.is_high(BitFlags::F_READ) {
+            todo!("Fast burst reads are not supported yet!")
+        }
+
+        let data = &mut [0; 6 * 32];
+        self.i2c
+            .write_read(self.address, &[Register::OUT_X_H], data)
+            .map_err(Error::I2C)?;
+
+        // No, Rust's stdlib *doesn't* have a way to do this. Yes, this peeves me.
+        let ret = &mut [(0u16, 0u16, 0u16); 32];
+        for (i, chunk) in data.chunks(6).enumerate() {
+            ret[i] = (
+                (u16::from(chunk[0]) << 8) | u16::from(chunk[1]),
+                (u16::from(chunk[2]) << 8) | u16::from(chunk[3]),
+                (u16::from(chunk[4]) << 8) | u16::from(chunk[5]),
+            );
+        }
+
+        return Ok(*ret);
+    }
+}
