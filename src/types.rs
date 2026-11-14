@@ -80,8 +80,10 @@ pub enum ReadMode {
     Fast,
 }
 
+/// FIFO buffer mode
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum FIFOMode {
+    /// Take a wild guess.
     Disabled,
     /// Circular buffer - when the buffer fills, incoming samples replace the oldest first.
     Circular,
