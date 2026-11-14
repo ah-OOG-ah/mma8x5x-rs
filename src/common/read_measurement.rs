@@ -115,4 +115,14 @@ where
 
         return Ok(*ret);
     }
+
+    /// Reads 32 unscaled measurements out of the FIFO buffer.
+    pub fn readUnscaledBurst(&mut self) -> Result<[UnscaledMeasurement; 32], Error<E>> {
+        let data = self.readRawBurst()?;
+        let mut ret = [UnscaledMeasurement::default(); 32];
+        for (i, (x, y, z)) in data.iter().enumerate() {
+            ret[i] = convert_14bit(*x, *y, *z);
+        }
+        return Ok(ret);
+    }
 }

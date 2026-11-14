@@ -39,7 +39,7 @@ pub mod mode {
 }
 
 /// Unscaled acceleration measurement
-#[derive(Debug, Default, Clone, PartialEq, Eq)]
+#[derive(Debug, Default, Copy, Clone, PartialEq, Eq)]
 pub struct UnscaledMeasurement {
     /// X-axis acceleration.
     pub x: i16,
